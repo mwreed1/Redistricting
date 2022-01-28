@@ -3,7 +3,7 @@ library(sf)
 library(janitor)
 library(here)
 
-extract_data <- function(state){
+extract_data_block <- function(state){
   data_raw <- read_csv(here(paste0("data_files/", state, "_pl2020_b/", state, "_pl2020_b.csv")))
   
   data <- data_raw %>%
@@ -17,9 +17,12 @@ extract_data <- function(state){
   
 }
 
-extract_data_tract <- function(state){
+extract_data <- function(state){
   # download data from https://redistrictingdatahub.org/data/download-data/#state-menu
-  data_raw <- read_csv(here(paste0("data_files/", state, "_pl2020_b/", state, "_pl2020_b.csv")))
+  data_raw <- read_csv(
+    here(paste0("data_files/", state, "_pl2020_t/", state, "_pl2020_t.csv")),
+    show_col_types = FALSE
+    )
   
   data <- data_raw %>%
     clean_names() %>%
@@ -35,8 +38,8 @@ extract_data_tract <- function(state){
     ) %>%
     filter(pop100 > 0)
   
-  write_csv(data, paste0("data/", state, "_input_t.csv"))
+  write_csv(data, here(paste0("data/", state, "_input_t.csv")))
   
 }
 
-data <- extract_data_tract('tx')
+# data <- extract_data('tx')

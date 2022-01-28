@@ -45,5 +45,5 @@ write_to_sf <- function(state, num){
 }
 
 
-tx <- write_to_sf("tx", "48")
+# tx <- write_to_sf("tx", "48")
 

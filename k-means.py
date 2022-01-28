@@ -1,4 +1,22 @@
 import numpy as np
+import csv
+
+def read_data(state):
+    with open(f'data/{state}_input_t.csv', newline='') as csvfile:
+        csvreader = csv.reader(csvfile, delimiter=',')
+        header = []
+        header = next(csvreader)
+        rows = []
+        for row in csvreader:
+                rows.append(row)
+
+    points = []
+
+    for item in rows:
+        points.append([float(x) for x in np.array(item)[1:5]])
+    return points
+
+
 
 def cardinality(cluster):
     return np.sum(np.array(cluster), axis=0)[1] # sum of population in cluster
@@ -85,3 +103,5 @@ def kmeans(X, k, alpha = 5, beta = 0.5, gamma = 1, it = 100, t = 0.01):
         clusters = voronoi(X, centroids, s, k, gamma, input_dic) # re assign clusters 
         i += 1
     return centroids, clusters
+    
+
